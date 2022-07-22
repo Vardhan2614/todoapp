@@ -177,5 +177,14 @@ app.delete("/todos/:todoId/", async (request, response) => {
   await database.run(deleteTodoQuery);
   response.send("Todo Deleted");
 });
+app.get("/agenda/",async(request,response)=>{
+      const {date}=request.query;
+      const selectQuery = `select * from todo where due_date = ${date}`;
+
+      const dbArray = await database.all(selectQuery)
+      response.send(dbArray)
+}
+  
+        
 
 module.exports = app;
